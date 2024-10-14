@@ -23,7 +23,7 @@ let counter: number = 0;
 // Event listener for button to increase the counter
 button.addEventListener("click", () => {
   counter++; // Increase counter by 1
-  counterDisplay.textContent= `${counter} 🍔`; // Update counter display with unit label
+  counterDisplay.textContent = `${counter} 🍔`; // Update counter display with unit label
 });
 
 // Append button to the DOM
