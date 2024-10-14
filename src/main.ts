@@ -38,7 +38,4 @@ app.append(button);
 setInterval(() => {
   counter++;
   updateCounterDisplay();
-
 }, 1000); //1sec
-
-
