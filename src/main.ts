@@ -33,8 +33,6 @@ button.addEventListener("click", () => {
   updateCounterDisplay(); // Update counter display with unit label
 });
 
-
-
 // Track the previous timestamp for calculating elapsed time
 let lastTimestamp: number = performance.now();
 
