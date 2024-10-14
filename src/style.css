@@ -44,16 +44,27 @@ h1 {
 }
 
 button {
+  position: absolute; /* Use absolute positioning */
+  top: 75%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Adjust to perfect center */
+
+  background-image: url('burger.png'); 
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  
   border-radius: 8px;
   border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
+  padding: 1em 2em; /* Increase padding for a larger button */
+  font-size: 1.5em; /* Increase font size for a larger button */
   font-weight: 500;
   font-family: inherit;
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
 }
+x
 button:hover {
   border-color: #646cff;
 }
