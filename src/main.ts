@@ -11,6 +11,8 @@ app.append(header);
 
 // Create a button element
 const button: HTMLButtonElement = document.createElement("button");
+// Append button to the DOM
+app.append(button);
 
 // Create a div element for the counter
 const counterDisplay = document.createElement("div");
@@ -22,7 +24,7 @@ let counter: number = 0;
 
 // Function to update the counter display
 const updateCounterDisplay = () => {
-  counterDisplay.textContent = `${counter} 🍔`;
+  counterDisplay.textContent = `${counter.toFixed(2)} 🍔`;
 };
 
 // Event listener for button to increase the counter
@@ -31,11 +33,24 @@ button.addEventListener("click", () => {
   updateCounterDisplay(); // Update counter display with unit label
 });
 
-// Append button to the DOM
-app.append(button);
 
-//counter that increments by 1sec without pressing on the button
-setInterval(() => {
-  counter++;
+
+// Track the previous timestamp for calculating elapsed time
+let lastTimestamp: number = performance.now();
+
+// Function to handle the animation frame updates
+const animateCounter = (timestamp: number) => {
+  // Calculate elapsed time in seconds
+  const elapsed = (timestamp - lastTimestamp) / 1000;
+  lastTimestamp = timestamp;
+
+  // Increase counter based on elapsed time (1 unit per second)
+  counter += elapsed;
   updateCounterDisplay();
-}, 1000); //1sec
+
+  // Request the next animation frame
+  requestAnimationFrame(animateCounter);
+};
+
+// Start the animation by requesting the first frame
+requestAnimationFrame(animateCounter);
