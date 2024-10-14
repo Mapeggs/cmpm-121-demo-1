@@ -20,11 +20,25 @@ app.append(counterDisplay); // Append the counter to the app div
 // Initialize counter variable
 let counter: number = 0;
 
+// Function to update the counter display
+const updateCounterDisplay = () => {
+  counterDisplay.textContent = `${counter} 🍔`;
+};
+
 // Event listener for button to increase the counter
 button.addEventListener("click", () => {
   counter++; // Increase counter by 1
-  counterDisplay.textContent = `${counter} 🍔`; // Update counter display with unit label
+  updateCounterDisplay(); // Update counter display with unit label
 });
 
 // Append button to the DOM
 app.append(button);
+
+//counter that increments by 1sec without pressing on the button
+setInterval(() => {
+  counter++;
+  updateCounterDisplay();
+
+}, 1000); //1sec
+
+
