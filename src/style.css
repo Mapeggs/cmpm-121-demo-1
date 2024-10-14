@@ -49,11 +49,11 @@ button {
   left: 50%; /* Center horizontally */
   transform: translate(-50%, -50%); /* Adjust to perfect center */
 
-  background-image: url('burger.png'); 
+  background-image: url("burger.png");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  
+
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 1em 2em; /* Increase padding for a larger button */
@@ -64,8 +64,7 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
-x
-button:hover {
+x button:hover {
   border-color: #646cff;
 }
 button:focus,

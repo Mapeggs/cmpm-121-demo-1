@@ -13,11 +13,9 @@ app.append(header);
 const button: HTMLButtonElement = document.createElement("button");
 
 //create a eventlistener for button
-button.addEventListener('click', () => {
-    console.log('Button Clicked');
+button.addEventListener("click", () => {
+  console.log("Button Clicked");
 });
 
 //append button to the dom
 document.body.appendChild(button);
-
-
