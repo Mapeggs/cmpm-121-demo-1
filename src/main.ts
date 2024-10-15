@@ -9,46 +9,72 @@ const header = document.createElement("h1");
 header.innerHTML = gameName;
 app.append(header);
 
-// Create a button element
-const button: HTMLButtonElement = document.createElement("button");
-// Append button to the DOM
-app.append(button);
-
-// Create a div element for the counter
-const counterDisplay = document.createElement("div");
-counterDisplay.textContent = "0 🍔"; // Initial counter display
-app.append(counterDisplay); // Append the counter to the app div
-
-// Initialize counter variable
+// Initialize the Counter and Growth Rate
 let counter: number = 0;
+let growthRate: number = 0;
 
-// Function to update the counter display
+// Create the Counter Display
+const counterDisplay = document.createElement("div");
+counterDisplay.textContent = "0 🍔";
+app.append(counterDisplay);
+
+// Update the Counter Display Function
 const updateCounterDisplay = () => {
   counterDisplay.textContent = `${counter.toFixed(2)} 🍔`;
 };
 
-// Event listener for button to increase the counter
-button.addEventListener("click", () => {
+// create a button for incrementing counter
+const mainButton: HTMLButtonElement = document.createElement("button");
+mainButton.className = "main-button";
+app.append(mainButton);
+
+// eventlistener for letting button be able to click and increase the counter by 1
+mainButton.addEventListener("click", () => {
   counter++; // Increase counter by 1
-  updateCounterDisplay(); // Update counter display with unit label
+  updateCounterDisplay(); // Update display
+  checkUpgradeButton(); // Check if upgrade button should be enabled
 });
 
-// Track the previous timestamp for calculating elapsed time
+// upgrade button function to increase growth rate by 1 and is initially disbaled
+const upgradeButton: HTMLButtonElement = document.createElement("button");
+upgradeButton.className = "upgrade-button"
+upgradeButton.textContent = "Buy Growth Rate (+1)";
+upgradeButton.disabled = true; // Initially disabled
+app.append(upgradeButton);
+
+// upgrade button for click event
+upgradeButton.addEventListener("click", () => {
+  if (counter >= 10) {
+    counter -= 10; // Deduct 10 units from the counter
+    growthRate += 1; // Increase growth rate by 1
+    updateCounterDisplay(); // Update counter display
+    checkUpgradeButton(); // Re-check if upgrade button should be enabled
+  }
+});
+
+// Function to Enable/Disable Upgrade Button Based on Counter
+const checkUpgradeButton = () => {
+  upgradeButton.disabled = counter < 10;
+};
+
+// Track the Previous Timestamp for Elapsed Time
 let lastTimestamp: number = performance.now();
 
-// Function to handle the animation frame updates
+// Function to Handle Animation Frame Updates Based on Growth Rate
 const animateCounter = (timestamp: number) => {
-  // Calculate elapsed time in seconds
   const elapsed = (timestamp - lastTimestamp) / 1000;
   lastTimestamp = timestamp;
 
-  // Increase counter based on elapsed time (1 unit per second)
-  counter += elapsed;
+  // Increase Counter Based on Growth Rate and Elapsed Time
+  counter += growthRate * elapsed;
   updateCounterDisplay();
 
-  // Request the next animation frame
+  // Check if Upgrade Button Should Be Enabled
+  checkUpgradeButton();
+
+  // Request the Next Animation Frame
   requestAnimationFrame(animateCounter);
 };
 
-// Start the animation by requesting the first frame
+// Start the Animation Loop
 requestAnimationFrame(animateCounter);
