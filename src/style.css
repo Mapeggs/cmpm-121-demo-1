@@ -89,7 +89,6 @@ button {
 .upgrade-button:hover:enabled {
   border-color: #ff8c00;
   background-color: #ff6600;
-
 }
 
 button:focus,
@@ -97,12 +96,11 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-
 @media (prefers-color-scheme: light) {
   .main-button {
     background-color: #f9f9f9;
   }
-  
+
   .upgrade-button {
     background-color: #eeeeee;
   }

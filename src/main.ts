@@ -37,7 +37,7 @@ mainButton.addEventListener("click", () => {
 
 // upgrade button function to increase growth rate by 1 and is initially disbaled
 const upgradeButton: HTMLButtonElement = document.createElement("button");
-upgradeButton.className = "upgrade-button"
+upgradeButton.className = "upgrade-button";
 upgradeButton.textContent = "Buy Growth Rate (+1)";
 upgradeButton.disabled = true; // Initially disabled
 app.append(upgradeButton);
