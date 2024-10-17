@@ -43,7 +43,12 @@ const updateItemCountDisplay = () => {
 };
 
 // Helper function to create an upgrade button
-const createUpgradeButton = (name: string, cost: number, rate: number, itemType: string) => {
+const createUpgradeButton = (
+  name: string,
+  cost: number,
+  rate: number,
+  itemType: string,
+) => {
   const button = document.createElement("button");
   button.className = `${name.toLowerCase()}-button`;
   button.textContent = `Buy ${name} (+${rate} cookies/sec) - ${cost} 🍔`;
