@@ -47,7 +47,12 @@ const updateItemCountDisplay = () => {
 };
 
 // Helper function to create an upgrade button with dynamic pricing
-const createUpgradeButton = (name: string, basePrice: number, rate: number, itemType: string) => {
+const createUpgradeButton = (
+  name: string,
+  basePrice: number,
+  rate: number,
+  itemType: string,
+) => {
   let currentPrice = basePrice;
   const button = document.createElement("button");
   button.className = `${name.toLowerCase()}-button`;
