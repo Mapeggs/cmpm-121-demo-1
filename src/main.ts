@@ -13,10 +13,14 @@ app.append(header);
 let counter: number = 0;
 let growthRate: number = 0;
 
-// Initialize Item Counts
+// Initialize Item Counts and Prices
 let itemACount: number = 0;
 let itemBCount: number = 0;
 let itemCCount: number = 0;
+
+let itemAPrice: number = 10;
+let itemBPrice: number = 100;
+let itemCPrice: number = 1000;
 
 // Create a display for the counter and growth rate
 const counterDisplay = document.createElement("div");
@@ -42,31 +46,32 @@ const updateItemCountDisplay = () => {
   itemCountDisplay.textContent = `A: ${itemACount}, B: ${itemBCount}, C: ${itemCCount}`;
 };
 
-// Helper function to create an upgrade button
-const createUpgradeButton = (
-  name: string,
-  cost: number,
-  rate: number,
-  itemType: string,
-) => {
+// Helper function to create an upgrade button with dynamic pricing
+const createUpgradeButton = (name: string, basePrice: number, rate: number, itemType: string) => {
+  let currentPrice = basePrice;
   const button = document.createElement("button");
   button.className = `${name.toLowerCase()}-button`;
-  button.textContent = `Buy ${name} (+${rate} cookies/sec) - ${cost} 🍔`;
+  button.textContent = `Buy ${name} (+${rate} cookies/sec) - ${currentPrice.toFixed(2)} 🍔`;
   button.disabled = true;
 
   button.addEventListener("click", () => {
-    if (counter >= cost) {
-      counter -= cost;
+    if (counter >= currentPrice) {
+      counter -= currentPrice;
       growthRate += rate;
 
-      // Increment the correct item count based on itemType
+      // Update the correct item count and price based on itemType
       if (itemType === "A") {
         itemACount++;
+        currentPrice = itemAPrice *= 1.15; // Increase price by 1.15x
       } else if (itemType === "B") {
         itemBCount++;
+        currentPrice = itemBPrice *= 1.15; // Increase price by 1.15x
       } else if (itemType === "C") {
         itemCCount++;
+        currentPrice = itemCPrice *= 1.15; // Increase price by 1.15x
       }
+
+      button.textContent = `Buy ${name} (+${rate} cookies/sec) - ${currentPrice.toFixed(2)} 🍔`;
 
       updateCounterDisplay();
       updateGrowthRateDisplay();
@@ -80,15 +85,15 @@ const createUpgradeButton = (
 };
 
 // Create Upgrade Buttons
-const upgradeButtonA = createUpgradeButton("A", 10, 0.1, "A");
-const upgradeButtonB = createUpgradeButton("B", 100, 2.0, "B");
-const upgradeButtonC = createUpgradeButton("C", 1000, 50.0, "C");
+const upgradeButtonA = createUpgradeButton("A", itemAPrice, 0.1, "A");
+const upgradeButtonB = createUpgradeButton("B", itemBPrice, 2.0, "B");
+const upgradeButtonC = createUpgradeButton("C", itemCPrice, 50.0, "C");
 
 // Check if Upgrade Buttons Should Be Enabled
 const checkUpgradeButtons = () => {
-  upgradeButtonA.disabled = counter < 10;
-  upgradeButtonB.disabled = counter < 100;
-  upgradeButtonC.disabled = counter < 1000;
+  upgradeButtonA.disabled = counter < itemAPrice;
+  upgradeButtonB.disabled = counter < itemBPrice;
+  upgradeButtonC.disabled = counter < itemCPrice;
 };
 
 // Main Button for Incrementing Counter
