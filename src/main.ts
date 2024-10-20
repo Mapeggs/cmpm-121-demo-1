@@ -53,7 +53,7 @@ const createUpgradeButton = (
   basePrice: number,
   rate: number,
   itemType: string,
-  displayText: string // New parameter for custom display text
+  displayText: string, // New parameter for custom display text
 ) => {
   let currentPrice = basePrice;
   const button = document.createElement("button");
@@ -92,9 +92,27 @@ const createUpgradeButton = (
 };
 
 // Create Upgrade Buttons with unique display texts
-const upgradeButtonA = createUpgradeButton("A", itemAPrice, 0.1, "A", "Hire a Burger Chef");
-const upgradeButtonB = createUpgradeButton("B", itemBPrice, 2.0, "B", "Plant a Burger Tree");
-const upgradeButtonC = createUpgradeButton("C", itemCPrice, 50.0, "C", "Make a Burger INC");
+const upgradeButtonA = createUpgradeButton(
+  "A",
+  itemAPrice,
+  0.1,
+  "A",
+  "Hire a Burger Chef",
+);
+const upgradeButtonB = createUpgradeButton(
+  "B",
+  itemBPrice,
+  2.0,
+  "B",
+  "Plant a Burger Tree",
+);
+const upgradeButtonC = createUpgradeButton(
+  "C",
+  itemCPrice,
+  50.0,
+  "C",
+  "Make a Burger INC",
+);
 
 // Check if Upgrade Buttons Should Be Enabled
 const checkUpgradeButtons = () => {
