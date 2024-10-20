@@ -25,9 +25,30 @@ interface Item {
 
 // Initialize available items
 const availableItems: Item[] = [
-  { name: "A", basePrice: 10, rate: 0.1, count: 0, price: 10, displayText: "Hire a Burger Chef" },
-  { name: "B", basePrice: 100, rate: 2.0, count: 0, price: 100, displayText: "Plant a Burger Tree" },
-  { name: "C", basePrice: 1000, rate: 50.0, count: 0, price: 1000, displayText: "Make a Burger INC" }
+  {
+    name: "A",
+    basePrice: 10,
+    rate: 0.1,
+    count: 0,
+    price: 10,
+    displayText: "Hire a Burger Chef",
+  },
+  {
+    name: "B",
+    basePrice: 100,
+    rate: 2.0,
+    count: 0,
+    price: 100,
+    displayText: "Plant a Burger Tree",
+  },
+  {
+    name: "C",
+    basePrice: 1000,
+    rate: 50.0,
+    count: 0,
+    price: 1000,
+    displayText: "Make a Burger INC",
+  },
 ];
 
 // Create a display for the counter, growth rate, and item counts
@@ -53,13 +74,13 @@ const updateGrowthRateDisplay = () => {
 
 const updateItemCountDisplay = () => {
   itemCountDisplay.textContent = availableItems
-    .map(item => `${item.name}: ${item.count}`)
+    .map((item) => `${item.name}: ${item.count}`)
     .join(", ");
 };
 
 // Create Upgrade Buttons
 const createUpgradeButtons = () => {
-  availableItems.forEach(item => {
+  availableItems.forEach((item) => {
     const button = document.createElement("button");
     button.className = `${item.name.toLowerCase()}-button upgrade-button`;
     button.textContent = `${item.displayText} (+${item.rate} burgers/sec) - ${item.price.toFixed(2)} 🍔`;
@@ -88,8 +109,10 @@ const createUpgradeButtons = () => {
 
 // Check if buttons should be enabled based on counter value
 const checkUpgradeButtons = () => {
-  availableItems.forEach(item => {
-    const button = document.querySelector(`.${item.name.toLowerCase()}-button`) as HTMLButtonElement;
+  availableItems.forEach((item) => {
+    const button = document.querySelector(
+      `.${item.name.toLowerCase()}-button`,
+    ) as HTMLButtonElement;
     button.disabled = counter < item.price;
   });
 };

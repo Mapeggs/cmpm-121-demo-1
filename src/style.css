@@ -55,9 +55,6 @@ button {
   color: #ffffff;
 }
 
-
-
-
 /* Main Button Styles */
 .main-button {
   width: 130px;
@@ -71,7 +68,7 @@ button {
   top: 75%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 1; 
+  z-index: 1;
 }
 
 .main-button:hover {
@@ -81,17 +78,16 @@ button {
 /* Counter Display Styles */
 .counter-display {
   position: absolute;
-  top: 75%; 
+  top: 75%;
   left: 50%;
-  transform: translate(-50%, -75%); 
-  z-index: 2; 
+  transform: translate(-50%, -75%);
+  z-index: 2;
   font-size: 2em;
   color: #ffffff;
   padding: 0.5em 1em;
   border-radius: 8px;
-  pointer-events: none; 
+  pointer-events: none;
 }
-
 
 /* Upgrade Button Styles */
 .upgrade-button {
