@@ -1,7 +1,7 @@
 import "./style.css";
 
+// Set up the game
 const app: HTMLDivElement = document.querySelector("#app")!;
-
 const gameName = "Burger Monsters";
 document.title = gameName;
 
@@ -13,16 +13,24 @@ app.append(header);
 let counter: number = 0;
 let growthRate: number = 0;
 
-// Initialize Item Counts and Prices
-let itemACount: number = 0;
-let itemBCount: number = 0;
-let itemCCount: number = 0;
+// Interface for the upgrade items
+interface Item {
+  name: string;
+  basePrice: number;
+  rate: number;
+  count: number;
+  price: number;
+  displayText: string;
+}
 
-let itemAPrice: number = 10;
-let itemBPrice: number = 100;
-let itemCPrice: number = 1000;
+// Initialize available items
+const availableItems: Item[] = [
+  { name: "A", basePrice: 10, rate: 0.1, count: 0, price: 10, displayText: "Hire a Burger Chef" },
+  { name: "B", basePrice: 100, rate: 2.0, count: 0, price: 100, displayText: "Plant a Burger Tree" },
+  { name: "C", basePrice: 1000, rate: 50.0, count: 0, price: 1000, displayText: "Make a Burger INC" }
+];
 
-// Create a display for the counter and growth rate
+// Create a display for the counter, growth rate, and item counts
 const counterDisplay = document.createElement("div");
 counterDisplay.classList.add("counter-display");
 const growthRateDisplay = document.createElement("div");
@@ -34,7 +42,7 @@ itemCountDisplay.textContent = "A: 0, B: 0, C: 0";
 
 app.append(counterDisplay, growthRateDisplay, itemCountDisplay);
 
-// The Counter Display Function
+// Update display functions
 const updateCounterDisplay = () => {
   counterDisplay.textContent = `${counter.toFixed(2)}`;
 };
@@ -44,81 +52,46 @@ const updateGrowthRateDisplay = () => {
 };
 
 const updateItemCountDisplay = () => {
-  itemCountDisplay.textContent = `A: ${itemACount}, B: ${itemBCount}, C: ${itemCCount}`;
+  itemCountDisplay.textContent = availableItems
+    .map(item => `${item.name}: ${item.count}`)
+    .join(", ");
 };
 
-// Helper function to create an upgrade button with dynamic pricing
-const createUpgradeButton = (
-  name: string,
-  basePrice: number,
-  rate: number,
-  itemType: string,
-  displayText: string, // New parameter for custom display text
-) => {
-  let currentPrice = basePrice;
-  const button = document.createElement("button");
-  button.className = `${name.toLowerCase()}-button`;
-  button.textContent = `${displayText} (+${rate} burgers/sec) - ${currentPrice.toFixed(2)} 🍔`;
-  button.disabled = true;
+// Create Upgrade Buttons
+const createUpgradeButtons = () => {
+  availableItems.forEach(item => {
+    const button = document.createElement("button");
+    button.className = `${item.name.toLowerCase()}-button upgrade-button`;
+    button.textContent = `${item.displayText} (+${item.rate} burgers/sec) - ${item.price.toFixed(2)} 🍔`;
+    button.disabled = true;
 
-  button.addEventListener("click", () => {
-    if (counter >= currentPrice) {
-      counter -= currentPrice;
-      growthRate += rate;
+    button.addEventListener("click", () => {
+      if (counter >= item.price) {
+        counter -= item.price;
+        growthRate += item.rate;
 
-      // Update the correct item count and price based on itemType
-      if (itemType === "A") {
-        itemACount++;
-        currentPrice = itemAPrice *= 1.15; // Increase price by 1.15x
-      } else if (itemType === "B") {
-        itemBCount++;
-        currentPrice = itemBPrice *= 1.15; // Increase price by 1.15x
-      } else if (itemType === "C") {
-        itemCCount++;
-        currentPrice = itemCPrice *= 1.15; // Increase price by 1.15x
+        item.count++;
+        item.price = item.basePrice * Math.pow(1.15, item.count); // Price increases by 1.15x
+
+        button.textContent = `${item.displayText} (+${item.rate} burgers/sec) - ${item.price.toFixed(2)} 🍔`;
+
+        updateCounterDisplay();
+        updateGrowthRateDisplay();
+        updateItemCountDisplay();
+        checkUpgradeButtons();
       }
+    });
 
-      button.textContent = `${displayText} (+${rate} burgers/sec) - ${currentPrice.toFixed(2)} 🍔`;
-
-      updateCounterDisplay();
-      updateGrowthRateDisplay();
-      updateItemCountDisplay();
-      checkUpgradeButtons();
-    }
+    app.append(button);
   });
-
-  app.append(button);
-  return button;
 };
 
-// Create Upgrade Buttons with unique display texts
-const upgradeButtonA = createUpgradeButton(
-  "A",
-  itemAPrice,
-  0.1,
-  "A",
-  "Hire a Burger Chef",
-);
-const upgradeButtonB = createUpgradeButton(
-  "B",
-  itemBPrice,
-  2.0,
-  "B",
-  "Plant a Burger Tree",
-);
-const upgradeButtonC = createUpgradeButton(
-  "C",
-  itemCPrice,
-  50.0,
-  "C",
-  "Make a Burger INC",
-);
-
-// Check if Upgrade Buttons Should Be Enabled
+// Check if buttons should be enabled based on counter value
 const checkUpgradeButtons = () => {
-  upgradeButtonA.disabled = counter < itemAPrice;
-  upgradeButtonB.disabled = counter < itemBPrice;
-  upgradeButtonC.disabled = counter < itemCPrice;
+  availableItems.forEach(item => {
+    const button = document.querySelector(`.${item.name.toLowerCase()}-button`) as HTMLButtonElement;
+    button.disabled = counter < item.price;
+  });
 };
 
 // Main Button for Incrementing Counter
@@ -146,3 +119,6 @@ const animateCounter = (timestamp: number) => {
 
 // Start the Animation Loop
 requestAnimationFrame(animateCounter);
+
+// Initialize upgrade buttons
+createUpgradeButtons();

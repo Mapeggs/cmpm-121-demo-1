@@ -55,11 +55,15 @@ button {
   color: #ffffff;
 }
 
+
+
+
 /* Main Button Styles */
 .main-button {
   width: 130px;
   height: 130px;
   background-image: url("burger.png");
+  background-color: #242424;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -67,7 +71,7 @@ button {
   top: 75%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 1;
+  z-index: 1; 
 }
 
 .main-button:hover {
@@ -77,26 +81,27 @@ button {
 /* Counter Display Styles */
 .counter-display {
   position: absolute;
-  top: 75%;
+  top: 75%; 
   left: 50%;
-  transform: translate(-50%, -75%);
-  z-index: 2;
+  transform: translate(-50%, -75%); 
+  z-index: 2; 
   font-size: 2em;
   color: #ffffff;
   padding: 0.5em 1em;
   border-radius: 8px;
-  pointer-events: none;
+  pointer-events: none; 
 }
+
 
 /* Upgrade Button Styles */
 .upgrade-button {
-  background-color: #3a3a3a;
+  background-color: #555555;
   margin-top: 2rem;
 }
 
 .upgrade-button:disabled {
-  background-color: #555555;
-  color: #aaaaaa;
+  background-color: #121212;
+  color: #535353;
   cursor: not-allowed;
 }
 
@@ -111,6 +116,10 @@ button:focus-visible {
 }
 
 @media (prefers-color-scheme: light) {
+  .main-button {
+    background-color: #f9f9f9;
+  }
+
   .upgrade-button {
     background-color: #eeeeee;
   }
