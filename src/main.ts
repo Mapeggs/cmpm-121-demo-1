@@ -2,7 +2,7 @@ import "./style.css";
 
 const app: HTMLDivElement = document.querySelector("#app")!;
 
-const gameName = "My amazi game";
+const gameName = "Burger Monsters";
 document.title = gameName;
 
 const header = document.createElement("h1");
@@ -24,22 +24,23 @@ let itemCPrice: number = 1000;
 
 // Create a display for the counter and growth rate
 const counterDisplay = document.createElement("div");
+counterDisplay.classList.add("counter-display");
 const growthRateDisplay = document.createElement("div");
 const itemCountDisplay = document.createElement("div");
 
-counterDisplay.textContent = "0 🍔";
-growthRateDisplay.textContent = "0 cookies/sec";
+counterDisplay.textContent = "0";
+growthRateDisplay.textContent = "0 burgers/sec";
 itemCountDisplay.textContent = "A: 0, B: 0, C: 0";
 
 app.append(counterDisplay, growthRateDisplay, itemCountDisplay);
 
 // The Counter Display Function
 const updateCounterDisplay = () => {
-  counterDisplay.textContent = `${counter.toFixed(2)} 🍔`;
+  counterDisplay.textContent = `${counter.toFixed(2)}`;
 };
 
 const updateGrowthRateDisplay = () => {
-  growthRateDisplay.textContent = `${growthRate.toFixed(1)} cookies/sec`;
+  growthRateDisplay.textContent = `${growthRate.toFixed(1)} burgers/sec`;
 };
 
 const updateItemCountDisplay = () => {
@@ -52,11 +53,12 @@ const createUpgradeButton = (
   basePrice: number,
   rate: number,
   itemType: string,
+  displayText: string // New parameter for custom display text
 ) => {
   let currentPrice = basePrice;
   const button = document.createElement("button");
   button.className = `${name.toLowerCase()}-button`;
-  button.textContent = `Buy ${name} (+${rate} cookies/sec) - ${currentPrice.toFixed(2)} 🍔`;
+  button.textContent = `${displayText} (+${rate} burgers/sec) - ${currentPrice.toFixed(2)} 🍔`;
   button.disabled = true;
 
   button.addEventListener("click", () => {
@@ -76,7 +78,7 @@ const createUpgradeButton = (
         currentPrice = itemCPrice *= 1.15; // Increase price by 1.15x
       }
 
-      button.textContent = `Buy ${name} (+${rate} cookies/sec) - ${currentPrice.toFixed(2)} 🍔`;
+      button.textContent = `${displayText} (+${rate} burgers/sec) - ${currentPrice.toFixed(2)} 🍔`;
 
       updateCounterDisplay();
       updateGrowthRateDisplay();
@@ -89,10 +91,10 @@ const createUpgradeButton = (
   return button;
 };
 
-// Create Upgrade Buttons
-const upgradeButtonA = createUpgradeButton("A", itemAPrice, 0.1, "A");
-const upgradeButtonB = createUpgradeButton("B", itemBPrice, 2.0, "B");
-const upgradeButtonC = createUpgradeButton("C", itemCPrice, 50.0, "C");
+// Create Upgrade Buttons with unique display texts
+const upgradeButtonA = createUpgradeButton("A", itemAPrice, 0.1, "A", "Hire a Burger Chef");
+const upgradeButtonB = createUpgradeButton("B", itemBPrice, 2.0, "B", "Plant a Burger Tree");
+const upgradeButtonC = createUpgradeButton("C", itemCPrice, 50.0, "C", "Make a Burger INC");
 
 // Check if Upgrade Buttons Should Be Enabled
 const checkUpgradeButtons = () => {
