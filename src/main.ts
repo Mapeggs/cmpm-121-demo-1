@@ -171,7 +171,7 @@ const animateCounter = (timestamp: number) => {
   counter += growthRate * elapsed;
   updateCounterDisplay();
   checkUpgradeButtons();
-  updateMainButtonSize(); // Update button size during growth
+  updateMainButtonSize(); // Update button size during growt
 
   requestAnimationFrame(animateCounter);
 };
