@@ -152,13 +152,25 @@ mainButton.addEventListener("click", () => {
 });
 app.append(mainButton);
 
-// Animation Frame to Update Counter Based on Growth Rate
+// Variables to track timestamps and elapsed time
 let lastTimestamp: number = performance.now();
+
+// Function to update the counter based on elapsed time and growth rate
+const incrementCounterByGrowthRate = (elapsed: number) => {
+  counter += growthRate * elapsed;
+};
+
+// Function to update the last timestamp after each frame
+const updateTimestamp = (timestamp: number) => {
+  lastTimestamp = timestamp;
+};
+
+// Simplified animation loop for readability and maintainability
 const animateCounter = (timestamp: number) => {
   const elapsed = (timestamp - lastTimestamp) / 1000;
-  lastTimestamp = timestamp;
+  updateTimestamp(timestamp);
 
-  counter += growthRate * elapsed;
+  incrementCounterByGrowthRate(elapsed); // Increment counter by growth rate
   updateGameState(); // Centralized game state update
 
   requestAnimationFrame(animateCounter);
