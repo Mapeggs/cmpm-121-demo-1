@@ -137,7 +137,7 @@ const createUpgradeButtons = () => {
 const checkUpgradeButtons = () => {
   availableItems.forEach((item) => {
     const button = document.querySelector(
-      `.${item.name.toLowerCase()}-button`
+      `.${item.name.toLowerCase()}-button`,
     ) as HTMLButtonElement;
     button.disabled = counter < item.price;
   });
