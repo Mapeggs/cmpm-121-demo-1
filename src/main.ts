@@ -18,8 +18,6 @@ const baseSize = 130; // Starting size of the button in pixels
 const growthFactor = 0.05; // Percentage increase per unit of counter
 const maxSize = 300; // Maximum size in pixels
 
-
-
 // Interface for the upgrade items
 interface Item {
   name: string;
@@ -74,9 +72,6 @@ const availableItems: Item[] = [
   },
 ];
 
-
-
-
 // Create a display for the counter, growth rate, and item counts
 const counterDisplay = document.createElement("div");
 counterDisplay.classList.add("counter-display");
@@ -105,17 +100,12 @@ const updateItemCountDisplay = () => {
     .join(", ");
 };
 
-
-
 // Function to update the size of the main button based on the counter
 const updateMainButtonSize = () => {
   const newSize = Math.min(baseSize + counter * growthFactor, maxSize); // Calculate new size based on counter
   mainButton.style.width = `${newSize}px`;
   mainButton.style.height = `${newSize}px`;
 };
-
-
-
 
 // Create Upgrade Buttons inside a container
 const upgradeContainer = document.createElement("div");
@@ -151,8 +141,6 @@ const createUpgradeButtons = () => {
   app.appendChild(upgradeContainer);
 };
 
-
-
 // Check if buttons should be enabled based on counter value
 const checkUpgradeButtons = () => {
   availableItems.forEach((item) => {
@@ -162,9 +150,6 @@ const checkUpgradeButtons = () => {
     button.disabled = counter < item.price;
   });
 };
-
-
-
 
 // Main Button for Incrementing Counter
 const mainButton: HTMLButtonElement = document.createElement("button");
@@ -176,9 +161,6 @@ mainButton.addEventListener("click", () => {
   updateMainButtonSize(); // Update button size whenever counter changes
 });
 app.append(mainButton);
-
-
-
 
 // Animation Frame to Update Counter Based on Growth Rate
 let lastTimestamp: number = performance.now();
@@ -194,12 +176,8 @@ const animateCounter = (timestamp: number) => {
   requestAnimationFrame(animateCounter);
 };
 
-
-
 // Start the Animation Loop
 requestAnimationFrame(animateCounter);
-
-
 
 // Initialize upgrade buttons
 createUpgradeButtons();
