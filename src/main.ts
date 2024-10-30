@@ -28,7 +28,7 @@ interface Item {
   displayText: string;
 }
 
-// Initialize available items (with 2 new items added)
+// Initialize available items
 const availableItems: Item[] = [
   {
     name: "Hires",
@@ -55,7 +55,7 @@ const availableItems: Item[] = [
     displayText: "Make a Burger INC",
   },
   {
-    name: "Factories", // New upgrade button
+    name: "Factories",
     basePrice: 5000,
     rate: 200.0,
     count: 0,
@@ -63,7 +63,7 @@ const availableItems: Item[] = [
     displayText: "Open a Burger Factory",
   },
   {
-    name: "Empires", // Another new upgrade button
+    name: "Empires",
     basePrice: 10000,
     rate: 1000.0,
     count: 0,
@@ -85,24 +85,20 @@ itemCountDisplay.textContent =
 
 app.append(counterDisplay, growthRateDisplay, itemCountDisplay);
 
-// Update display functions
-const updateCounterDisplay = () => {
+// Function to centralize updates for counter and UI
+const updateGameState = () => {
   counterDisplay.textContent = `${counter.toFixed(2)}`;
-};
-
-const updateGrowthRateDisplay = () => {
   growthRateDisplay.textContent = `${growthRate.toFixed(1)} burgers/sec`;
-};
-
-const updateItemCountDisplay = () => {
   itemCountDisplay.textContent = availableItems
     .map((item) => `${item.name}: ${item.count}`)
     .join(", ");
+  updateMainButtonSize();
+  checkUpgradeButtons();
 };
 
 // Function to update the size of the main button based on the counter
 const updateMainButtonSize = () => {
-  const newSize = Math.min(baseSize + counter * growthFactor, maxSize); // Calculate new size based on counter
+  const newSize = Math.min(baseSize + counter * growthFactor, maxSize);
   mainButton.style.width = `${newSize}px`;
   mainButton.style.height = `${newSize}px`;
 };
@@ -124,15 +120,11 @@ const createUpgradeButtons = () => {
         growthRate += item.rate;
 
         item.count++;
-        item.price = item.basePrice * Math.pow(1.15, item.count); // Price increases by 1.15x
+        item.price = item.basePrice * Math.pow(1.15, item.count);
 
         button.textContent = `${item.displayText} (+${item.rate} burgers/sec) - ${item.price.toFixed(2)} 🍔`;
 
-        updateCounterDisplay();
-        updateGrowthRateDisplay();
-        updateItemCountDisplay();
-        checkUpgradeButtons();
-        updateMainButtonSize(); // Call this to update size after purchase
+        updateGameState(); // Centralized game state update
       }
     });
 
@@ -145,7 +137,7 @@ const createUpgradeButtons = () => {
 const checkUpgradeButtons = () => {
   availableItems.forEach((item) => {
     const button = document.querySelector(
-      `.${item.name.toLowerCase()}-button`,
+      `.${item.name.toLowerCase()}-button`
     ) as HTMLButtonElement;
     button.disabled = counter < item.price;
   });
@@ -156,9 +148,7 @@ const mainButton: HTMLButtonElement = document.createElement("button");
 mainButton.className = "main-button";
 mainButton.addEventListener("click", () => {
   counter++;
-  updateCounterDisplay();
-  checkUpgradeButtons();
-  updateMainButtonSize(); // Update button size whenever counter changes
+  updateGameState(); // Centralized game state update
 });
 app.append(mainButton);
 
@@ -169,9 +159,7 @@ const animateCounter = (timestamp: number) => {
   lastTimestamp = timestamp;
 
   counter += growthRate * elapsed;
-  updateCounterDisplay();
-  checkUpgradeButtons();
-  updateMainButtonSize(); // Update button size during growt
+  updateGameState(); // Centralized game state update
 
   requestAnimationFrame(animateCounter);
 };
