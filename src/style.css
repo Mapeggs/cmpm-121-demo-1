@@ -48,7 +48,6 @@ body {
   }
 }
 
-
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
@@ -59,9 +58,8 @@ h1 {
   margin: 0;
   padding: 0.5rem;
   z-index: 2;
-  animation: float 3s ease-in-out infinite; 
+  animation: float 3s ease-in-out infinite;
 }
-
 
 #app {
   max-width: 1280px;
