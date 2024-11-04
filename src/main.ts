@@ -76,21 +76,32 @@ const availableItems: Item[] = [
 const counterDisplay = document.createElement("div");
 counterDisplay.classList.add("counter-display");
 const growthRateDisplay = document.createElement("div");
+growthRateDisplay.classList.add("growth-rate-display");
 const itemCountDisplay = document.createElement("div");
 
-counterDisplay.textContent = "0";
-growthRateDisplay.textContent = "0 burgers/sec";
-itemCountDisplay.textContent =
-  "Hires: 0, Trees: 0, Companies: 0, Factories: 0, Empires: 0";
+counterDisplay.textContent = `🍔 0`;
+growthRateDisplay.textContent = `⏱️ 0 burgers/sec`;
+itemCountDisplay.textContent = "👨‍🍳 Hires: 0, 🌳 Trees: 0, 🏢 Companies: 0, 🏭 Factories: 0, 🌎 Empires: 0";
 
 app.append(counterDisplay, growthRateDisplay, itemCountDisplay);
 
 // Function to centralize updates for counter and UI
 const updateGameState = () => {
-  counterDisplay.textContent = `${counter.toFixed(2)}`;
-  growthRateDisplay.textContent = `${growthRate.toFixed(1)} burgers/sec`;
+  counterDisplay.textContent = `🍔 ${counter.toFixed(2)}`;
+  growthRateDisplay.textContent = `⏱️ ${growthRate.toFixed(1)} burgers/sec`;
   itemCountDisplay.textContent = availableItems
-    .map((item) => `${item.name}: ${item.count}`)
+    .map((item) => {
+      let emoji;
+      switch (item.name) {
+        case "Hires": emoji = "👨‍🍳"; break;
+        case "Trees": emoji = "🌳"; break;
+        case "Companies": emoji = "🏢"; break;
+        case "Factories": emoji = "🏭"; break;
+        case "Empires": emoji = "🌎"; break;
+        default: emoji = "🍔"; break;
+      }
+      return `${emoji} ${item.count}`;
+    })
     .join(", ");
   updateMainButtonSize();
   checkUpgradeButtons();
