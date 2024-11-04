@@ -81,7 +81,8 @@ const itemCountDisplay = document.createElement("div");
 
 counterDisplay.textContent = `🍔 0`;
 growthRateDisplay.textContent = `⏱️ 0 burgers/sec`;
-itemCountDisplay.textContent = "👨‍🍳 Hires: 0, 🌳 Trees: 0, 🏢 Companies: 0, 🏭 Factories: 0, 🌎 Empires: 0";
+itemCountDisplay.textContent =
+  "👨‍🍳 Hires: 0, 🌳 Trees: 0, 🏢 Companies: 0, 🏭 Factories: 0, 🌎 Empires: 0";
 
 app.append(counterDisplay, growthRateDisplay, itemCountDisplay);
 
@@ -93,12 +94,24 @@ const updateGameState = () => {
     .map((item) => {
       let emoji;
       switch (item.name) {
-        case "Hires": emoji = "👨‍🍳"; break;
-        case "Trees": emoji = "🌳"; break;
-        case "Companies": emoji = "🏢"; break;
-        case "Factories": emoji = "🏭"; break;
-        case "Empires": emoji = "🌎"; break;
-        default: emoji = "🍔"; break;
+        case "Hires":
+          emoji = "👨‍🍳";
+          break;
+        case "Trees":
+          emoji = "🌳";
+          break;
+        case "Companies":
+          emoji = "🏢";
+          break;
+        case "Factories":
+          emoji = "🏭";
+          break;
+        case "Empires":
+          emoji = "🌎";
+          break;
+        default:
+          emoji = "🍔";
+          break;
       }
       return `${emoji} ${item.count}`;
     })

@@ -2,5 +2,4 @@ This is the starter code project for the `Demo 1` project in CMPM 121, Game Deve
 
 I gained insirpation from one of my fellow peers where their title was in a constant float state and I'll provide a link to their game on how they did theirs : https://elliem-gd.github.io/cmpm-121-demo-1/
 
-
 For the emojis and other things with the look of my game I got inspiration from my peers game: https://klundyy.github.io/cmpm-121-demo-1/
